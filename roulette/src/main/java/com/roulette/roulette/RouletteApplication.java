@@ -8,6 +8,7 @@ public class RouletteApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RouletteApplication.class, args);
+		System.out.printf("hello, world!");
 	}
 
 }
