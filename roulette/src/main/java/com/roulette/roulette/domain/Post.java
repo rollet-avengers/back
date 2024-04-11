@@ -3,6 +3,8 @@ package com.roulette.roulette.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "post")
 public class Post {
@@ -12,8 +14,7 @@ public class Post {
     @Column(name = "post_id")
     private Long postId;
 
-    @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 

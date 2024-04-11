@@ -1,25 +1,33 @@
 package com.roulette.roulette.domain;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.OneToOne;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
+
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "image")
 public class Image {
 
-    @Id @GeneratedValue
+    @Id
+    @Column(name = "img_id", nullable = false)
+    @GeneratedValue
     private Long imgId;
 
-    @OneToOne(mappedBy = "Image", cascade = CascadeType.ALL)
-    private Long postImgId;
-    @OneToOne(mappedBy = "Image", cascade = CascadeType.ALL)
-    private Long replyImgId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reply_img_id", nullable = false)
+    private ReplyImage replyImg;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_img_id", nullable = false)
+    private PostImage postImg;
+
+    @Column(name = "img_url")
     private String imgUrl;
+
+    @Column(name = "create_time")
     private LocalDateTime createTime;
+
+    @Column(name = "delete_time")
     private LocalDateTime deleteTime;
 }

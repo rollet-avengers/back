@@ -5,11 +5,13 @@ import jakarta.persistence.*;
 @Entity
 public class PostImage {
 
-    @Id @GeneratedValue
+    @Id
+    @Column(name = "post_img_id", nullable = false)
+    @GeneratedValue
     private Long postImgId;
-    @OneToOne
-    @JoinColumn(name = "post_id");
-    private Long postId;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
+    @GeneratedValue
+    private Post post;
 }
