@@ -3,25 +3,21 @@ package com.roulette.roulette.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table
-public class Reply {
-
+@Table(name = "code")
+public class Code {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reply_id")
-    private Long replyId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @Column(name = "code_id")
+    private String codeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "code_id")
-    private Code code;
+    @Column(name = "code_url")
+    private String codeUrl;
+
+    @Column(name = "check")
+    private String check;
 
     @Column(name = "create_time")
     private String createTime;
@@ -31,4 +27,7 @@ public class Reply {
 
     @Column(name = "delete_time")
     private String deleteTime;
+
+    @Column(name = "code_name")
+    private String codeName;
 }
