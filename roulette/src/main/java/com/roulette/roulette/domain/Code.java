@@ -16,8 +16,8 @@ public class Code {
     @Column(name = "code_url")
     private String codeUrl;
 
-    @Column(name = "check")
-    private String check;
+    @Column(name = "confirm")
+    private String confirm;
 
     @Column(name = "create_time")
     private String createTime;
