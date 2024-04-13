@@ -2,6 +2,8 @@ package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "code")
 public class Code {
@@ -16,17 +18,17 @@ public class Code {
     @Column(name = "code_url")
     private String codeUrl;
 
-    @Column(name = "check")
-    private String check;
+    @Column(name = "confirm")
+    private String confirm;
 
     @Column(name = "create_time")
-    private String createTime;
+    private LocalDateTime createTime;
 
     @Column(name = "update_time")
-    private String updateTime;
+    private LocalDateTime  updateTime;
 
     @Column(name = "delete_time")
-    private String deleteTime;
+    private LocalDateTime  deleteTime;
 
     @Column(name = "code_name")
     private String codeName;
