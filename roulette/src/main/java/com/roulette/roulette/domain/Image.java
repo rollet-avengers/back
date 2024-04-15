@@ -2,12 +2,14 @@ package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "image")
+@EntityListeners(AuditingEntityListener.class)
 public class Image {
 
     @Id
