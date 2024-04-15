@@ -1,6 +1,7 @@
 package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
 
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class Image {
     @Column(name = "img_url")
     private String imgUrl;
 
+    @CreatedDate
     @Column(name = "create_time")
     private LocalDateTime createTime;
 

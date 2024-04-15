@@ -1,6 +1,10 @@
 package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "code")
@@ -19,15 +23,18 @@ public class Code {
     @Column(name = "confirm")
     private String confirm;
 
+    @CreatedDate
     @Column(name = "create_time")
-    private String createTime;
+    private LocalDateTime createTime;
 
+    @LastModifiedDate
     @Column(name = "update_time")
-    private String updateTime;
+    private LocalDateTime updateTime;
 
     @Column(name = "delete_time")
-    private String deleteTime;
+    private LocalDateTime deleteTime;
 
     @Column(name = "code_name")
     private String codeName;
+
 }
