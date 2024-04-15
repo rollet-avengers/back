@@ -1,6 +1,7 @@
 package com.roulette.roulette.post.controller;
 
 import com.roulette.roulette.domain.Post;
+import com.roulette.roulette.post.dto.PostDto;
 import com.roulette.roulette.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +19,7 @@ public class PostController {
     private PostService postService;
 
     @GetMapping("/code/list/{page}")
-    public Page<Post> getPosts(@PathVariable int page) {
+    public Page<PostDto> getPosts(@PathVariable int page) {
         return postService.getRecentPosts(page, 10);
     }
 }

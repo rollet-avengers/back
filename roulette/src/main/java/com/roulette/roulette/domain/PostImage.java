@@ -1,8 +1,10 @@
 package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class PostImage {
 
     @Id
