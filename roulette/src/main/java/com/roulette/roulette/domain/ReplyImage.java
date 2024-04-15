@@ -14,6 +14,5 @@ public class ReplyImage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reply_id", nullable = false)
-    @GeneratedValue
     private Reply reply;
 }

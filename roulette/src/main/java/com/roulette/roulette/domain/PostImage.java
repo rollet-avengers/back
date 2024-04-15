@@ -14,6 +14,5 @@ public class PostImage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
-    @GeneratedValue
     private Post post;
 }

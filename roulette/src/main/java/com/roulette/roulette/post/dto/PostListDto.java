@@ -4,12 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Getter @Setter
 @AllArgsConstructor
-public class PostDto {
+public class PostListDto {
     private Long postId;
-    private Long memberId;
-    private String content;
+    private String title;
+    private String createdTime;
     private String imgSrc;
 }
