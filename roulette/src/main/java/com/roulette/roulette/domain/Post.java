@@ -2,11 +2,14 @@ package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "post")
+@Getter
 public class Post {
 
     @Id
@@ -36,4 +39,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private Set<Reply> replies;
+
+    public Post(long postId, String title, String contents, Member member) {
+    }
 }

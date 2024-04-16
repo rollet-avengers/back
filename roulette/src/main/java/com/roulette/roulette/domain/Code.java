@@ -1,9 +1,13 @@
 package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "code")
+@Getter
+@Setter
 public class Code {
     @Id
     @Column(name = "code_id")
@@ -30,4 +34,7 @@ public class Code {
 
     @Column(name = "code_name")
     private String codeName;
+
+    public Code(long codeId, String url1, String date, String codeName1) {
+    }
 }
