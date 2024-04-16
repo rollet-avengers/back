@@ -17,7 +17,7 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/list/{page}")
+    @GetMapping("/{page}")
     public Page<PostListDto> getPostsList(@PathVariable int page) {
         return postService.getRecentPosts(page, 10);
     }
@@ -28,10 +28,9 @@ public class PostController {
 
     }
 
-    @PostMapping("/")
+    @PostMapping("/choice")
     public ResponseEntity<Void> chooseReply(@RequestBody ChooseRequestDto request){
-
-
+        postService.setPostChoiceComplete(request.getPostId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

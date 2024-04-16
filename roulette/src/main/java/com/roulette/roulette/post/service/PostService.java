@@ -25,60 +25,29 @@ public class PostService {
     @Autowired
     private ImageRepository imageRepository;
 
+    @Autowired
+    private PostDtoService postDtoService;
+
     public Page<PostListDto> getRecentPosts(int page, int size){
         Pageable pageable = PageRequest.of(page, size, Sort.by("createTime").descending());
         Page<Post> posts = postRepository.findAll(pageable);
 
-        return posts.map(this::convertToPostListDto);
+        return posts.map(postDtoService::convertToPostListDto);
         // 이 부분에 대한 설명 필요.
 
     }
 
     public Optional<PostDto> getPostById(Long postId){
         Optional<Post> optionalPost  = postRepository.findById(postId); // 포스트가 없을수도 있기 때문에
-
-        if (optionalPost.isPresent()) {
-            Post post = optionalPost.get();
-            return Optional.ofNullable(convertToPostDto(post));
-        }
-
-        return Optional.empty();
+        return optionalPost.map(postDtoService::convertToPostDto);
     }
 
-    public PostDto convertToPostDto(Post post){
-
-        String imgSrc = null;
-        Optional<Image> optionalImage = imageRepository.findByPostImg_Post(post);
-
-        if (optionalImage.isPresent()) {
-            imgSrc = optionalImage.get().getImgUrl();
+    public void setPostChoiceComplete(Long postId) {
+        int updatedCount = postRepository.setPostChoiceTrue(postId);
+        if (updatedCount == 0) {
+            // 업데이트가 발생하지 않았을 경우, 게시글이 존재하지 않는 것일 수 있음
+            throw new RuntimeException("No Post found with id: " + postId);
         }
-
-        PostDto postDto = new PostDto(
-                post.getPostId(),
-                post.getMember().getMemberId(),
-                post.getContents(),
-                imgSrc
-        );
-
-        return postDto;
-
-    }
-
-    private PostListDto convertToPostListDto(Post post){
-        String imgSrc = null;
-        Optional<Image> optionalImage = imageRepository.findByPostImg_Post(post);
-
-        if (optionalImage.isPresent()) {
-            imgSrc = optionalImage.get().getImgUrl();  // 이미지 URL을 imgSrc 변수에 할당
-        }
-
-        return new PostListDto(
-                post.getPostId(),
-                post.getTitle(),
-                post.getCreateTime().toString(),
-                imgSrc
-        );
     }
 
 }
