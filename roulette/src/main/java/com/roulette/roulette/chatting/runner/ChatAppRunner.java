@@ -1,8 +1,8 @@
 package com.roulette.roulette.chatting.runner;
 
 import com.roulette.roulette.chatting.repository.ConversationRepository;
-import com.roulette.roulette.chatting.repository.MemberRepository;
 import com.roulette.roulette.chatting.repository.MessageRepository;
+import com.roulette.roulette.post.repository.MemberRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import com.roulette.roulette.domain.Conversation;
@@ -12,6 +12,7 @@ import com.roulette.roulette.domain.Message;
 import java.util.Arrays;
 import java.util.HashSet;
 
+@Component
 public class ChatAppRunner implements CommandLineRunner {
 
     private final ConversationRepository conversationRepository;

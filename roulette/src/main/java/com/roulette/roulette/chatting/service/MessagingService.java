@@ -1,11 +1,11 @@
 package com.roulette.roulette.chatting.service;
 
 import com.roulette.roulette.chatting.repository.ConversationRepository;
-import com.roulette.roulette.chatting.repository.MemberRepository;
 import com.roulette.roulette.chatting.repository.MessageRepository;
 import com.roulette.roulette.domain.Conversation;
 import com.roulette.roulette.domain.Member;
 import com.roulette.roulette.domain.Message;
+import com.roulette.roulette.post.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

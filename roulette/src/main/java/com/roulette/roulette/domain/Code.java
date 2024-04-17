@@ -40,9 +40,6 @@ public class Code {
     @Column(name = "delete_time")
     private LocalDateTime  deleteTime;
 
-    @Column(name = "delete_time")
-    private LocalDateTime deleteTime;
-
     @Column(name = "code_name")
     private String codeName;
 
