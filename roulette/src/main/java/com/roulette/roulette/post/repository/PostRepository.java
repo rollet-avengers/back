@@ -17,7 +17,6 @@ public interface PostRepository extends JpaRepository<Post, Long>{
     Page<Post> findAll(Pageable pageable);
 
     @Modifying
-    @Transactional
     @Query("UPDATE Post p SET p.choice = TRUE WHERE p.postId = :postId")
     int setPostChoiceTrue(Long postId);
 }

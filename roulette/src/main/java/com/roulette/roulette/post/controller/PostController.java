@@ -1,8 +1,6 @@
 package com.roulette.roulette.post.controller;
 
-import com.roulette.roulette.post.dto.ChooseRequestDto;
-import com.roulette.roulette.post.dto.PostDto;
-import com.roulette.roulette.post.dto.PostListDto;
+import com.roulette.roulette.post.dto.*;
 import com.roulette.roulette.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +16,7 @@ public class PostController {
     private PostService postService;
 
     @GetMapping("/{page}")
-    public Page<PostListDto> getPostsList(@PathVariable int page) {
+    public Page<PostListDto> getPostList(@PathVariable int page) {
         return postService.getRecentPosts(page, 10);
     }
 
@@ -29,8 +27,14 @@ public class PostController {
     }
 
     @PostMapping("/choice")
-    public ResponseEntity<Void> chooseReply(@RequestBody ChooseRequestDto request){
+    public ResponseEntity<Void> chooseReply(@RequestBody ChooseRequestDto request) {
         postService.setPostChoiceComplete(request.getPostId());
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/ask")
+    public AskPostResponseDto askPost(@RequestBody AskPostRequestDto request){
+        Long postId = postService.createPost(request);
+        return new AskPostResponseDto(postId);
     }
 }

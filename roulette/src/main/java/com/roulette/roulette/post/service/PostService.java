@@ -2,6 +2,7 @@ package com.roulette.roulette.post.service;
 
 import com.roulette.roulette.domain.Image;
 import com.roulette.roulette.domain.Post;
+import com.roulette.roulette.post.dto.AskPostRequestDto;
 import com.roulette.roulette.post.dto.PostDto;
 import com.roulette.roulette.post.dto.PostListDto;
 import com.roulette.roulette.post.repository.ImageRepository;
@@ -48,6 +49,14 @@ public class PostService {
             // 업데이트가 발생하지 않았을 경우, 게시글이 존재하지 않는 것일 수 있음
             throw new RuntimeException("No Post found with id: " + postId);
         }
+    }
+
+    public Long createPost(AskPostRequestDto requestDto){
+        Post post = new Post();
+        post.setTitle(requestDto.getTitle());
+        post.setContents(requestDto.getContents());
+        post = postRepository.save(post);
+        return post.getPostId();
     }
 
 }
