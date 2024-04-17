@@ -2,6 +2,8 @@ package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "member")
@@ -17,4 +19,20 @@ public class Member {
 
     @Column(name = "email")
     private String email;
+
+
+    @Column(name="create_date")
+    private LocalDateTime create_time;
+
+    @Column(name="deleted_date")
+    private LocalDateTime deleted_time;
+
+
+    public Member(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public Member() {
+    }
 }
