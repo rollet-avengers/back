@@ -1,9 +1,15 @@
 package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table
+@EntityListeners(AuditingEntityListener.class)
 public class Reply {
 
     @Id
@@ -23,12 +29,14 @@ public class Reply {
     @JoinColumn(name = "code_id")
     private Code code;
 
+    @CreatedDate
     @Column(name = "create_time")
-    private String createTime;
+    private LocalDateTime createTime;
 
+    @LastModifiedDate
     @Column(name = "update_time")
-    private String updateTime;
+    private LocalDateTime updateTime;
 
     @Column(name = "delete_time")
-    private String deleteTime;
+    private LocalDateTime deleteTime;
 }
