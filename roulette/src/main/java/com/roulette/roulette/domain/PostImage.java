@@ -1,15 +1,16 @@
 package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 
 @Entity
-@Getter
+@Data
 public class PostImage {
 
     @Id
-    @Column(name = "post_img_id", nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_img_id")
     private Long postImgId;
 
     @ManyToOne(fetch = FetchType.LAZY)

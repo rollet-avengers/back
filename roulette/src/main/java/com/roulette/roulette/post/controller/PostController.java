@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/code")
 public class PostController {
@@ -15,12 +17,12 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/{page}")
+    @GetMapping("/list/{page}")
     public Page<PostListDto> getPostList(@PathVariable int page) {
         return postService.getRecentPosts(page, 10);
     }
 
-    @GetMapping("/{post_id}")
+    @GetMapping("/post/{post_id}")
     public PostDto getPost(@PathVariable Long post_id) {
         return postService.getPostById(post_id).get(); //Optional로 주기 때문에
 
@@ -32,8 +34,8 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/ask")
-    public AskPostResponseDto askPost(@RequestBody AskPostRequestDto request){
+    @PostMapping(value = "/ask", consumes = "multipart/form-data")
+    public AskPostResponseDto askPost(@ModelAttribute AskPostRequestDto request) throws IOException {
         Long postId = postService.createPost(request);
         return new AskPostResponseDto(postId);
     }

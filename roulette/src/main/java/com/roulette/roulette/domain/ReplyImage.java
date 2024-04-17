@@ -9,7 +9,7 @@ public class ReplyImage {
 
     @Id
     @Column(name = "reply_img_id", nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long replyImgId;
 
     @ManyToOne(fetch = FetchType.LAZY)
