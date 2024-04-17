@@ -8,6 +8,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "code")
 @EntityListeners(AuditingEntityListener.class)
@@ -33,7 +35,10 @@ public class Code {
 
     @LastModifiedDate
     @Column(name = "update_time")
-    private LocalDateTime updateTime;
+    private LocalDateTime  updateTime;
+
+    @Column(name = "delete_time")
+    private LocalDateTime  deleteTime;
 
     @Column(name = "delete_time")
     private LocalDateTime deleteTime;

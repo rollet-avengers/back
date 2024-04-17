@@ -1,11 +1,11 @@
 package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 
 @Entity
 @Table(name = "member")
-@Getter
+@Data
 public class Member {
     @Id
     @Column(name = "member_id")
