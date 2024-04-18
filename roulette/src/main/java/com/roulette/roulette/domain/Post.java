@@ -46,4 +46,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private Set<Reply> replies;
+
+    @Column(name = "choice")
+    private boolean choice = false;
 }
