@@ -5,7 +5,7 @@ import com.roulette.roulette.chatting.repository.MessageRepository;
 import com.roulette.roulette.domain.Conversation;
 import com.roulette.roulette.domain.Member;
 import com.roulette.roulette.domain.Message;
-import com.roulette.roulette.post.repository.MemberRepository;
+import com.roulette.roulette.aboutlogin.repository.MemberJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class MessagingService {
     private MessageRepository messageRepository;
 
     @Autowired
-    private MemberRepository memberRepository;
+    private MemberJpaRepository memberJpaRepository;
 
     @Transactional
     public Conversation createConversation(Conversation conversation) {
@@ -70,7 +70,7 @@ public class MessagingService {
     }
 
     public Member getMember(Long memberId) {
-        return memberRepository.findById(memberId)
+        return memberJpaRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found with id: " + memberId));
     }
 }

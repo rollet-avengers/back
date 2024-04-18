@@ -1,9 +1,9 @@
-package com.roulette.roulette.post.repository;
+package com.roulette.roulette.aboutlogin.repository;
 
 import com.roulette.roulette.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberJpaRepository extends JpaRepository<Member, Long> {
 }

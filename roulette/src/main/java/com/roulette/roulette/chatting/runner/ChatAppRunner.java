@@ -2,9 +2,8 @@ package com.roulette.roulette.chatting.runner;
 
 import com.roulette.roulette.chatting.repository.ConversationRepository;
 import com.roulette.roulette.chatting.repository.MessageRepository;
-import com.roulette.roulette.post.repository.MemberRepository;
+import com.roulette.roulette.aboutlogin.repository.MemberJpaRepository;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 import com.roulette.roulette.domain.Conversation;
 import com.roulette.roulette.domain.Member;
 import com.roulette.roulette.domain.Message;
@@ -12,18 +11,18 @@ import com.roulette.roulette.domain.Message;
 import java.util.Arrays;
 import java.util.HashSet;
 
-@Component
+//@Component
 public class ChatAppRunner implements CommandLineRunner {
 
     private final ConversationRepository conversationRepository;
-    private final MemberRepository memberRepository;
+    private final MemberJpaRepository memberJpaRepository;
     private final MessageRepository messageRepository;
 
     public ChatAppRunner(ConversationRepository conversationRepository,
-                         MemberRepository memberRepository,
+                         MemberJpaRepository memberJpaRepository,
                          MessageRepository messageRepository) {
         this.conversationRepository = conversationRepository;
-        this.memberRepository = memberRepository;
+        this.memberJpaRepository = memberJpaRepository;
         this.messageRepository = messageRepository;
     }
 
@@ -46,7 +45,7 @@ public class ChatAppRunner implements CommandLineRunner {
         kei.setName("Kei Smith");
         kei.setEmail("kei@example.com");
 
-        memberRepository.saveAll(Arrays.asList(alice, bob, steve, kei));
+        memberJpaRepository.saveAll(Arrays.asList(alice, bob, steve, kei));
 
         // Create a conversation between Alice and Bob
         Conversation conversationAB = new Conversation();

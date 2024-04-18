@@ -8,10 +8,9 @@ import com.roulette.roulette.post.dto.AskPostRequestDto;
 import com.roulette.roulette.post.dto.PostDto;
 import com.roulette.roulette.post.dto.PostListDto;
 import com.roulette.roulette.post.repository.ImageRepository;
-import com.roulette.roulette.post.repository.MemberRepository;
+import com.roulette.roulette.aboutlogin.repository.MemberJpaRepository;
 import com.roulette.roulette.post.repository.PostImageRepository;
 import com.roulette.roulette.post.repository.PostRepository;
-import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -20,7 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -46,7 +44,7 @@ public class PostService {
     @Autowired
     private PostImageRepository postImageRepository;
     @Autowired
-    private MemberRepository memberRepository; // MemberRepository를 주입받습니다.
+    private MemberJpaRepository memberJpaRepository; // MemberRepository를 주입받습니다.
 
     @Autowired
     private PostDtoService postDtoService;
@@ -74,7 +72,7 @@ public class PostService {
     }
 
     public Long createPost(AskPostRequestDto requestDto) throws IOException {
-        Member member = memberRepository.findById(requestDto.getMember_id())
+        Member member = memberJpaRepository.findById(requestDto.getMember_id())
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         //이 메소드는 나중에 수정해야함.
 
