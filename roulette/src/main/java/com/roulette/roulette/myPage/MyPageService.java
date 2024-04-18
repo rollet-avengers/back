@@ -4,8 +4,11 @@ package com.roulette.roulette.myPage;
 import com.roulette.roulette.domain.Code;
 import com.roulette.roulette.domain.Member;
 import com.roulette.roulette.domain.Post;
+import com.roulette.roulette.myPage.myDTO.*;
+import com.roulette.roulette.myPage.myRepository.MyCodeRepository;
+import com.roulette.roulette.myPage.myRepository.MyMemberRepository;
+import com.roulette.roulette.myPage.myRepository.MyPostRepository;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,20 +23,19 @@ public class MyPageService {
 
 
     //내정보 조회하기
-    public MemberDTO getMemberDTO(Long memberId){
-        Member member =  myMemberRepository.findById(memberId).orElse(null);
+    public MemberDTO getMemberDTO(Long member_id){
+        Member member =  myMemberRepository.findById(member_id).orElse(null);
         if (member == null)
             return null;
-        System.out.println("123213211321313213");
         return new MemberDTO(member.getName(), member.getEmail());
     }
 
     //내가한 질문들 받아오기
-    public MyPageDTO getMyPageData(Long memberId) {
+    public MyPageDTO getMyPageData(Long member_id) {
         MyPageDTO myPageDTO = new MyPageDTO();
 
         // 해당 memberId로 회원의 이메일을 가져와 설정
-        Member member = myMemberRepository.findById(memberId).orElse(null);
+        Member member = myMemberRepository.findById(member_id).orElse(null);
         if (member != null) {
             myPageDTO.setEmail(member.getEmail());
         } else {
@@ -41,7 +43,7 @@ public class MyPageService {
         }
 
         // 해당 memberId로 회원이 작성한 모든 질문을 가져와 설정
-        List<Post> postList = myPostRepository.findAllByMemberId(memberId);
+        List<Post> postList = myPostRepository.findAllByMemberId(member_id);
         List<PostDTO> postDTOList = new ArrayList<>();
         for (Post post : postList) {
             PostDTO postDTO = new PostDTO();
@@ -60,22 +62,11 @@ public class MyPageService {
 
 
     //내가 올린 코드 불러오기
-    public MyCodeDTO getMyCodeData(Long memberId){
+    public MyCodeDTO getMyCodeData(Long member_id){
         MyCodeDTO myCodeDTO = new MyCodeDTO();
 
-        // 해당 memberId로 회원의 코드 URL과 생성 시간을 가져와 설정
-        List<Code> codeList = myCodeRepository.findAllByMemberId(memberId);
-        if (!codeList.isEmpty()) {
-            // 첫 번째 코드 데이터의 URL과 생성 시간을 설정
-            Code firstCode = codeList.get(0);
-            myCodeDTO.setCodeURL(firstCode.getCodeUrl());
-            myCodeDTO.setCreatedTime(firstCode.getCreateTime());
-        } else {
-            // 코드가 없는 경우 기본값으로 설정
-            myCodeDTO.setCodeURL("not CodeURL");
-            myCodeDTO.setCreatedTime("not CreatedTime");
-        }
-
+//        // 해당 memberId로 회원의 코드 URL과 생성 시간을 가져와 설정
+        List<Code> codeList = myCodeRepository.findAllByMemberId(member_id);
 
         // 해당 memberId로 회원이 작성한 모든 code를 가져와 설정
         List<CodeDTO> codeDTOList = new ArrayList<>();
@@ -83,6 +74,8 @@ public class MyPageService {
             CodeDTO codeDTO = new CodeDTO();
             codeDTO.setCodeId(code.getCodeId());
             codeDTO.setCodeName(code.getCodeName());
+            codeDTO.setCodeUrl(code.getCodeUrl());
+            codeDTO.setCreateTime(code.getCreateTime());
             codeDTOList.add(codeDTO);
         }
         myCodeDTO.setCodeList(codeDTOList);
@@ -90,7 +83,7 @@ public class MyPageService {
         return myCodeDTO;
     }
 
-    public Object goMyPage(Long memberId) {
+    public Object goMyPage(Long member_id) {
         return null;
     }
 }

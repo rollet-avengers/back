@@ -1,4 +1,4 @@
-package com.roulette.roulette.myPage;
+package com.roulette.roulette.myPage.myDTO;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

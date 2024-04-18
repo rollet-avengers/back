@@ -1,8 +1,6 @@
-package com.roulette.roulette.myPage;
+package com.roulette.roulette.myPage.myRepository;
 
-import com.roulette.roulette.domain.Code;
 import com.roulette.roulette.domain.Post;
-import jakarta.persistence.EntityManager;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

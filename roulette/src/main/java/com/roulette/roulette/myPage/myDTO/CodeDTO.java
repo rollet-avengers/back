@@ -1,4 +1,4 @@
-package com.roulette.roulette.myPage;
+package com.roulette.roulette.myPage.myDTO;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 @Setter
 @RequiredArgsConstructor
 public class CodeDTO {
-    private String codeURL;
+    private String codeUrl;
     private String createTime;
     private String codeId;
     private String codeName;
 
-    public CodeDTO (String codeURL, String createTime, String codeId, String codeName){
-        this.codeURL = codeURL;
+    public CodeDTO (String codeUrl, String createTime, String codeId, String codeName){
+        this.codeUrl = codeUrl;
         this.createTime = createTime;
         this.codeId = codeId;
         this.codeName = codeName;
