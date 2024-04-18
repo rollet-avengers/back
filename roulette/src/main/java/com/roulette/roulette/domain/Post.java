@@ -2,14 +2,16 @@ package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Table(name = "post")
-@Getter
+@EntityListeners(AuditingEntityListener.class)
 public class Post {
 
     @Id
@@ -28,18 +30,17 @@ public class Post {
     @Column(name = "contents")
     private String contents;
 
+    @CreatedDate
     @Column(name = "create_time")
-    private String createTime;
+    private LocalDateTime createTime;
 
+    @LastModifiedDate
     @Column(name = "update_time")
-    private String updateTime;
+    private LocalDateTime updateTime;
 
     @Column(name = "delete_time")
-    private String deleteTime;
+    private LocalDateTime deleteTime;
 
     @OneToMany(mappedBy = "post")
     private Set<Reply> replies;
-
-    public Post(long postId, String title, String contents, Member member) {
-    }
 }

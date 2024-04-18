@@ -1,13 +1,15 @@
 package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "code")
-@Getter
-@Setter
+@EntityListeners(AuditingEntityListener.class)
 public class Code {
     @Id
     @Column(name = "code_id")
@@ -23,18 +25,18 @@ public class Code {
     @Column(name = "confirm")
     private String confirm;
 
+    @CreatedDate
     @Column(name = "create_time")
-    private String createTime;
+    private LocalDateTime createTime;
 
+    @LastModifiedDate
     @Column(name = "update_time")
-    private String updateTime;
+    private LocalDateTime updateTime;
 
     @Column(name = "delete_time")
-    private String deleteTime;
+    private LocalDateTime deleteTime;
 
     @Column(name = "code_name")
     private String codeName;
 
-    public Code(long codeId, String url1, String date, String codeName1) {
-    }
 }
