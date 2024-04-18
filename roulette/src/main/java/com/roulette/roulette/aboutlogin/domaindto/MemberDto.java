@@ -1,7 +1,6 @@
 package com.roulette.roulette.aboutlogin.domaindto;
 
 import lombok.Data;
-import lombok.Getter;
 
 
 @Data
@@ -15,14 +14,6 @@ public class MemberDto {
             this.email = email;
             this.name = name;
         }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
 }
 
 
