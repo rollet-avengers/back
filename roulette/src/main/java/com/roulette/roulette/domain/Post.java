@@ -2,9 +2,6 @@ package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,7 +12,6 @@ import java.util.Set;
 @Entity
 @Table(name = "post")
 @EntityListeners(AuditingEntityListener.class)
-@Data
 public class Post {
 
     @Id
@@ -47,8 +43,4 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private Set<Reply> replies;
-
-    @Column(name = "choice")
-    private boolean choice = false;
-
 }

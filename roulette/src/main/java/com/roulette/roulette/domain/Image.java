@@ -1,31 +1,28 @@
 package com.roulette.roulette.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 import java.time.LocalDateTime;
 
+@Entity
 @Table(name = "image")
 @EntityListeners(AuditingEntityListener.class)
-@Data
-@Entity
 public class Image {
 
     @Id
     @Column(name = "img_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long imgId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reply_img_id", nullable = true)
+    @JoinColumn(name = "reply_img_id", nullable = false)
     private ReplyImage replyImg;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_img_id", nullable = true)
+    @JoinColumn(name = "post_img_id", nullable = false)
     private PostImage postImg;
 
     @Column(name = "img_url")
