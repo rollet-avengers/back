@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class CodeDTO {
     private String codeUrl;
-    private String createTime;
+    private LocalDateTime createTime;
     private String codeId;
     private String codeName;
 
-    public CodeDTO (String codeUrl, String createTime, String codeId, String codeName){
+    public CodeDTO (String codeUrl, LocalDateTime createTime, String codeId, String codeName){
         this.codeUrl = codeUrl;
         this.createTime = createTime;
         this.codeId = codeId;
