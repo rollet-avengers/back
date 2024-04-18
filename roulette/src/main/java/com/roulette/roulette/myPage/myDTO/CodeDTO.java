@@ -1,13 +1,13 @@
 package com.roulette.roulette.myPage.myDTO;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @RequiredArgsConstructor
 public class CodeDTO {
     private String codeUrl;
