@@ -3,6 +3,7 @@ package com.roulette.roulette.dto.mypage;
 import lombok.*;
 
 @Data
+@RequiredArgsConstructor
 public class MemberDTO {
     private  String name;
     private  String email;
@@ -12,7 +13,4 @@ public class MemberDTO {
         this.email = email;
     }
 
-    public MemberDTO() {
-
-    }
 }
