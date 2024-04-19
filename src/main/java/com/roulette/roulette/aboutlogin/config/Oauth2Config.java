@@ -40,7 +40,19 @@ public class Oauth2Config {
                 .authorizeHttpRequests((authorize)->{
                     authorize.requestMatchers("/logouts","/api1","/testdata").hasRole("user")
                             .requestMatchers("/api2").hasRole("admin")
-                            .requestMatchers("/login","/login/**","/","/styles.css","/test/**","/error/**","/googlelogin","/kakaologin").permitAll()
+                            .requestMatchers("/login",
+                                    "/login/**",
+                                    "/",
+                                    "/styles.css",
+                                    "/test/**",
+                                    "/error/**",
+                                    "/googlelogin",
+                                    "/kakaologin",
+                                    "/chat/**",
+                                    "/ws/**",
+                                    "/swagger-ui/**",
+                                    "/swagger-ui.html",
+                                    "/v3/api-docs/**").permitAll()
                             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                             .anyRequest().authenticated();
 
@@ -58,11 +70,6 @@ public class Oauth2Config {
                         .accessDeniedHandler(authenHandler))
 
                 .build();
-
-
-
-
-
     }
 
 }
