@@ -1,6 +1,7 @@
 package com.roulette.roulette.myPage;
 
 
+import com.roulette.roulette.dto.code.CodeDTO;
 import com.roulette.roulette.dto.mypage.*;
 import com.roulette.roulette.entity.Code;
 import com.roulette.roulette.entity.Member;
@@ -72,14 +73,14 @@ public class MyPageService {
         // 해당 memberId로 회원이 작성한 모든 code를 가져와 설정
         List<CodeDTO> codeDTOList = new ArrayList<>();
         for (Code code : codeList) {
-            CodeDTO codeDTO = new CodeDTO();
-            codeDTO.setCodeId(code.getCodeId());
-            codeDTO.setCodeName(code.getCodeName());
-            codeDTO.setCodeUrl(code.getCodeUrl());
-            codeDTO.setCreateTime(code.getCreateTime());
-            codeDTOList.add(codeDTO);
+//            CodeDTO codeDTO = new CodeDTO();
+//            codeDTO.setCodeId(code.getCodeId());
+//            codeDTO.setCodeName(code.getCodeName());
+//            codeDTO.setCodeUrl(code.getCodeUrl());
+//            codeDTO.setCreateTime(code.getCreateTime());
+//            codeDTOList.add(codeDTO);
         }
-        myCodeDTO.setCodeList(codeDTOList);
+//        myCodeDTO.setCodeList(codeDTOList);
 
         return myCodeDTO;
     }

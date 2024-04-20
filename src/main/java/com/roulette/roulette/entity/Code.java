@@ -1,6 +1,7 @@
 package com.roulette.roulette.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -13,9 +14,9 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Data
 public class Code {
-    @Id
+    @Id@GeneratedValue
     @Column(name = "code_id")
-    private String codeId;
+    private Long codeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -25,20 +26,14 @@ public class Code {
     private String codeUrl;
 
     @Column(name = "confirm")
-    private String confirm;
+    private boolean confirm;
 
-    @CreatedDate
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
-
-    @LastModifiedDate
-    @Column(name = "update_time")
-    private LocalDateTime  updateTime;
-
-    @Column(name = "delete_time")
-    private LocalDateTime  deleteTime;
-
-    @Column(name = "code_name")
-    private String codeName;
+    @Builder
+    public Code(Long codeId, Member member, String codeUrl, boolean confirm) {
+        this.codeId = codeId;
+        this.member = member;
+        this.codeUrl = codeUrl;
+        this.confirm = confirm;
+    }
 
 }
