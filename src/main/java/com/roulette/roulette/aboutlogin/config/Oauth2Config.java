@@ -55,7 +55,8 @@ public class Oauth2Config {
                                     "/v3/api-docs/**",
                                     "/reply/**",
                                     "/code/**",
-                                    "/post/**").permitAll()
+                                    "/post/**",
+                                    "/mypage/**").permitAll()
                             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                             .anyRequest().authenticated();
 

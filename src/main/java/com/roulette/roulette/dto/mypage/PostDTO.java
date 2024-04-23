@@ -1,5 +1,6 @@
 package com.roulette.roulette.dto.mypage;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ public class PostDTO {
         // 디폴트 생성자
     }
 
+    @Builder
     public PostDTO(Long postId, String title, LocalDateTime createdTime, String imgSrc, String email) {
         this.postId = postId;
         this.title = title;
