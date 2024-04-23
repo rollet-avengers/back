@@ -1,5 +1,6 @@
 package com.roulette.roulette.entity;
 
+import com.roulette.roulette.type.CodeType;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -18,22 +19,20 @@ public class Code {
     @Column(name = "code_id")
     private Long codeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
     @Column(name = "code_url")
     private String codeUrl;
 
-    @Column(name = "confirm")
-    private boolean confirm;
+    @Column(name = "code_type")
+    private CodeType codeType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reply_id")
+    private Reply reply;
 
     @Builder
-    public Code(Long codeId, Member member, String codeUrl, boolean confirm) {
-        this.codeId = codeId;
-        this.member = member;
+    public Code(String codeUrl, CodeType codeType, Reply reply) {
         this.codeUrl = codeUrl;
-        this.confirm = confirm;
+        this.codeType = codeType;
+        this.reply = reply;
     }
-
 }

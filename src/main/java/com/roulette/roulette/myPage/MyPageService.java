@@ -68,21 +68,22 @@ public class MyPageService {
         MyCodeDTO myCodeDTO = new MyCodeDTO();
 
 //        // 해당 memberId로 회원의 코드 URL과 생성 시간을 가져와 설정
-        List<Code> codeList = myCodeRepository.findAllByMemberId(member_id);
+//        List<Code> codeList = myCodeRepository.findAllByMemberId(member_id);
 
         // 해당 memberId로 회원이 작성한 모든 code를 가져와 설정
         List<CodeDTO> codeDTOList = new ArrayList<>();
-        for (Code code : codeList) {
+//        for (Code code : codeList) {
 //            CodeDTO codeDTO = new CodeDTO();
 //            codeDTO.setCodeId(code.getCodeId());
 //            codeDTO.setCodeName(code.getCodeName());
 //            codeDTO.setCodeUrl(code.getCodeUrl());
 //            codeDTO.setCreateTime(code.getCreateTime());
 //            codeDTOList.add(codeDTO);
-        }
+//        }
 //        myCodeDTO.setCodeList(codeDTOList);
 
-        return myCodeDTO;
+//        return myCodeDTO;
+          return null;
     }
 
     public Object goMyPage(Long member_id) {

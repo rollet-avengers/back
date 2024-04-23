@@ -5,5 +5,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class CodeRequest {
-    private MultipartFile code;
+    private Long postId;
+    private String html;
+    private String css;
+    private String js;
 }

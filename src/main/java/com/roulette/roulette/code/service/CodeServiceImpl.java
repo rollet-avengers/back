@@ -3,39 +3,77 @@ package com.roulette.roulette.code.service;
 import com.roulette.roulette.code.repository.CodeRepository;
 import com.roulette.roulette.dto.code.CodeDTO;
 import com.roulette.roulette.entity.Code;
+import com.roulette.roulette.entity.Member;
+import com.roulette.roulette.entity.Reply;
+import com.roulette.roulette.type.CodeType;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
+@Slf4j
 public class CodeServiceImpl implements CodeService {
+
+
     private final CodeRepository codeRepository;
     @Override
-    public void insertCode(CodeDTO codeDTO) {
+    public void insertCode(String html, String css, String js, Reply reply) {
 
-        Code code = Code.builder()
-                        .codeUrl(codeDTO.getCodeUrl())
-                        .confirm(codeDTO.isConfirm())
-                        .member(codeDTO.getMember())
-                        .build();
+        // 경로 지정
+        // 파일 이름 random 생성
 
-        codeRepository.save(code);
-        codeRepository.findOneByMember(1L);
+        String htmlFile = UUID.randomUUID().toString();
+        String htmlPath = "uploads/code/" + htmlFile;
+
+        String cssFile = UUID.randomUUID().toString();
+        String cssPath = "uploads/code/" + cssFile;
+
+        String jsFile = UUID.randomUUID().toString();
+        String jsPath = "uploads/code/" + jsFile;
+
+        // text 파일 만들고 저장
+        try {
+            BufferedWriter htmlWriter = new BufferedWriter(new FileWriter(htmlPath));
+            BufferedWriter cssWriter = new BufferedWriter(new FileWriter(cssPath));
+            BufferedWriter jsWriter = new BufferedWriter(new FileWriter(jsPath));
+
+            htmlWriter.write(html);
+            cssWriter.write(css);
+            jsWriter.write(js);
+
+        } catch (IOException e) {
+            log.info("Error occurred while writing to file: " + e.getMessage());
+            // 로깅 라이브러리로 로그 기록을 남기거나, 적절한 예외 처리를 수행할 수 있습니다.
+        }
+
+        // Code 객체로 만든후 repository에 저장
+        Code htmlCode = Code.builder()
+                .codeUrl(htmlFile)
+                .codeType(CodeType.HTML).build();
+
+        Code cssCode = Code.builder()
+                .codeUrl(cssFile)
+                .codeType(CodeType.CSS).build();
+
+        Code jsCode = Code.builder()
+                .codeUrl(jsFile)
+                .codeType(CodeType.CSS).build();
+
+        reply.add(htmlCode);
+        reply.add(cssCode);
+        reply.add(jsCode);
+
+        codeRepository.save(htmlCode);
+        codeRepository.save(cssCode);
+        codeRepository.save(jsCode);
     }
 
-    @Override
-    public Optional<CodeDTO> getCodeFile(Long id) {
-        Code code = codeRepository.findById(id).get();
 
-        CodeDTO codeDTO = CodeDTO.builder()
-                .codeId(code.getCodeId())
-                .codeUrl(code.getCodeUrl())
-                .member(code.getMember())
-                .confirm(code.isConfirm())
-                .build();
-
-        return Optional.ofNullable(codeDTO);
-    }
 }
