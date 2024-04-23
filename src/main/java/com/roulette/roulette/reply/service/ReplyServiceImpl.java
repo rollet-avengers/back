@@ -69,13 +69,13 @@ public class ReplyServiceImpl implements ReplyService {
 
                 String line = "";
                 while ((line = html.readLine()) != null){
-                    str[0] += line;
+                    str[0] += line+"\n";
                 }
                 while ((line = css.readLine()) != null){
-                    str[1] += line;
+                    str[1] += line+"\n";
                 }
                 while ((line = js.readLine()) != null){
-                    str[2] += line;
+                    str[2] += line+"\n";
                 }
             } catch (IOException e) {
                 System.err.println("Unable to read the file: " + e.getMessage());
