@@ -37,13 +37,16 @@ public class ReplyServiceImpl implements ReplyService {
                 .build();
 
         codeService.insertCode(html, css, js, reply);
+
+
         replyRepository.save(reply);
+
     }
 
     @Override
     public String[] selectReplyById(Long id) {
             Reply reply = replyRepository.findById(id).get();
-            String filePath = "upload/code";
+            String filePath = "uploads/code";
 
             String[] str = new String[3];
 

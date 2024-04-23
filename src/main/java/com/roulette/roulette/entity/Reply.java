@@ -39,7 +39,7 @@ public class Reply extends Period {
     }
 
     public void add(Code code){
-        code.setReply(this);
+        this.code = code;
     }
 
 }

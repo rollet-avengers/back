@@ -43,6 +43,10 @@ public class CodeServiceImpl implements CodeService {
             cssWriter.write(css);
             jsWriter.write(js);
 
+            htmlWriter.close();
+            cssWriter.close();
+            jsWriter.close();
+
         } catch (IOException e) {
             log.info("Error occurred while writing to file: " + e.getMessage());
             // 로깅 라이브러리로 로그 기록을 남기거나, 적절한 예외 처리를 수행할 수 있습니다.
@@ -57,6 +61,10 @@ public class CodeServiceImpl implements CodeService {
                 .build();
 
         reply.add(code);
+
+        log.info(reply.getCode().getHtmlCodeUrl());
+        log.info(reply.getCode().getCssCodeUrl());
+        log.info(reply.getCode().getJsCodeUrl());
 
         codeRepository.save(code);
 

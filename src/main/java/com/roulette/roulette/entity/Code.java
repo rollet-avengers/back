@@ -3,13 +3,14 @@ package com.roulette.roulette.entity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "code")
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 @Data
-@Builder
 public class Code {
     @Id@GeneratedValue
     @Column(name = "code_id")
@@ -27,4 +28,12 @@ public class Code {
     @OneToOne(mappedBy = "code")
     private Reply reply;
 
+    @Builder
+    public Code(Long codeId, String htmlCodeUrl, String cssCodeUrl, String jsCodeUrl, Reply reply) {
+        this.codeId = codeId;
+        this.htmlCodeUrl = htmlCodeUrl;
+        this.cssCodeUrl = cssCodeUrl;
+        this.jsCodeUrl = jsCodeUrl;
+        this.reply = reply;
+    }
 }
