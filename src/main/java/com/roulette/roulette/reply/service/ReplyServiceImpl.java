@@ -48,7 +48,7 @@ public class ReplyServiceImpl implements ReplyService {
             Reply reply = replyRepository.findById(id).get();
             String filePath = "uploads/code";
 
-            String[] str = new String[3];
+            String[] str = {"","",""};
 
             File htmlFile = new File(filePath,reply.getCode().getHtmlCodeUrl());
             File cssFile = new File(filePath,reply.getCode().getCssCodeUrl());
