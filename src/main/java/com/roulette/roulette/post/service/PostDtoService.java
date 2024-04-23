@@ -1,14 +1,20 @@
 package com.roulette.roulette.post.service;
 
+import com.roulette.roulette.dto.post.PostAndReplyListDto;
 import com.roulette.roulette.entity.Image;
 import com.roulette.roulette.entity.Post;
-import com.roulette.roulette.dto.post.PostDto;
 import com.roulette.roulette.dto.post.PostListDto;
+import com.roulette.roulette.entity.Reply;
 import com.roulette.roulette.post.repository.ImageRepository;
+import com.roulette.roulette.reply.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,33 +24,55 @@ public class PostDtoService {
     @Autowired
     private ImageRepository imageRepository;
 
-    public PostDto convertToPostDto(Post post) {
-        String imgSrc = null;
+    @Autowired
+    private ReplyRepository replyRepository;
+
+    public PostAndReplyListDto convertToPostDto(Post post) {
+        String imgBase64 = null;
         Optional<Image> optionalImage = imageRepository.findByPostImg_Post(post);
+        //이미지 찾는 로직
+        List<Reply> replies = replyRepository.findByPostPostId(post.getPostId());
+        //reply 찾는 로직
         if (optionalImage.isPresent()) {
-            imgSrc = optionalImage.get().getImgUrl();
+            try {
+                Path imagePath = Paths.get(optionalImage.get().getImgUrl());
+                imgBase64 = ImageConvertService.encodeFileToBase64Binary(imagePath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        return new PostDto(
+        return new PostAndReplyListDto(
                 post.getPostId(),
+                post.getMember().getName(),
                 post.getMember().getMemberId(),
+                post.getTitle(),
                 post.getContents(),
-                imgSrc
+                imgBase64,
+                post.getCreateTime(),
+                replies
         );
     }
 
     public PostListDto convertToPostListDto(Post post) {
-        String imgSrc = null;
+        String imgBase64 = null;
         Optional<Image> optionalImage = imageRepository.findByPostImg_Post(post);
         if (optionalImage.isPresent()) {
-            imgSrc = optionalImage.get().getImgUrl();
+            try {
+                Path imagePath = Paths.get(optionalImage.get().getImgUrl());
+                imgBase64 = ImageConvertService.encodeFileToBase64Binary(imagePath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         return new PostListDto(
+                post.getMember().getMemberId(),
+                post.getMember().getName(),
                 post.getPostId(),
                 post.getTitle(),
-                post.getCreateTime().toString(),
-                imgSrc
+                post.getCreateTime(),
+                imgBase64
         );
     }
 }
