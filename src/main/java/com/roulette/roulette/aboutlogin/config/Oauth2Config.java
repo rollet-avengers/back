@@ -54,6 +54,7 @@ public class Oauth2Config {
                                     "/swagger-ui.html",
                                     "/v3/api-docs/**",
                                     "/reply/**",
+                                    "/code/**",
                                     "/post/**").permitAll()
                             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                             .anyRequest().authenticated();

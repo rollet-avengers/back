@@ -1,16 +1,17 @@
 package com.roulette.roulette.post.service;
 
+import com.roulette.roulette.dto.post.PostAndReplyListDto;
 import com.roulette.roulette.entity.Image;
 import com.roulette.roulette.entity.Member;
 import com.roulette.roulette.entity.Post;
 import com.roulette.roulette.entity.PostImage;
 import com.roulette.roulette.dto.post.AskPostRequestDto;
-import com.roulette.roulette.dto.post.PostDto;
 import com.roulette.roulette.dto.post.PostListDto;
 import com.roulette.roulette.post.repository.ImageRepository;
 import com.roulette.roulette.aboutlogin.repository.MemberJpaRepository;
 import com.roulette.roulette.post.repository.PostImageRepository;
 import com.roulette.roulette.post.repository.PostRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@Slf4j
 public class PostService {
 
     @Autowired
@@ -58,7 +60,7 @@ public class PostService {
 
     }
 
-    public Optional<PostDto> getPostById(Long postId){
+    public Optional<PostAndReplyListDto> getPostById(Long postId){
         Optional<Post> optionalPost  = postRepository.findById(postId); // 포스트가 없을수도 있기 때문에
         return optionalPost.map(postDtoService::convertToPostDto);
     }
@@ -87,10 +89,8 @@ public class PostService {
         if (requestDto.getImage() != null) {
             Image image = storeImage(requestDto.getImage(), post);
             imageRepository.save(image);
-
-            PostImage postImage = new PostImage();
-            postImage.setPost(post); // 이미 저장된 Post를 참조
-            postImageRepository.save(postImage);
+        }
+        else{
         }
 
         return post.getPostId();
@@ -98,7 +98,7 @@ public class PostService {
 
     private Image storeImage(MultipartFile file, Post post) throws IOException {
 
-        String fileName = file.getOriginalFilename(); // 파일 이름 가져오기
+        String fileName = "post_" + post.getPostId() + "_" + file.getOriginalFilename();; // 파일 이름 가져오기
         Path targetLocation = Paths.get(uploadDir).resolve(fileName);
 
         // 디렉토리가 없으면 생성
@@ -118,4 +118,5 @@ public class PostService {
         image.setPostImg(postImage); // Set the PostImage to the Image
         return image;
     }
+
 }
