@@ -1,18 +1,14 @@
 package com.roulette.roulette.code.service;
 
 import com.roulette.roulette.code.repository.CodeRepository;
-import com.roulette.roulette.dto.code.CodeDTO;
 import com.roulette.roulette.entity.Code;
-import com.roulette.roulette.entity.Member;
 import com.roulette.roulette.entity.Reply;
-import com.roulette.roulette.type.CodeType;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,7 +24,6 @@ public class CodeServiceImpl implements CodeService {
 
         // 경로 지정
         // 파일 이름 random 생성
-
         String htmlFile = UUID.randomUUID().toString();
         String htmlPath = "uploads/code/" + htmlFile;
 
@@ -54,25 +49,18 @@ public class CodeServiceImpl implements CodeService {
         }
 
         // Code 객체로 만든후 repository에 저장
-        Code htmlCode = Code.builder()
-                .codeUrl(htmlFile)
-                .codeType(CodeType.HTML).build();
+        Code code = Code.builder()
+                .htmlCodeUrl(htmlFile)
+                .cssCodeUrl(cssFile)
+                .jsCodeUrl(jsFile)
+                .reply(reply)
+                .build();
 
-        Code cssCode = Code.builder()
-                .codeUrl(cssFile)
-                .codeType(CodeType.CSS).build();
+        reply.add(code);
 
-        Code jsCode = Code.builder()
-                .codeUrl(jsFile)
-                .codeType(CodeType.CSS).build();
+        codeRepository.save(code);
 
-        reply.add(htmlCode);
-        reply.add(cssCode);
-        reply.add(jsCode);
 
-        codeRepository.save(htmlCode);
-        codeRepository.save(cssCode);
-        codeRepository.save(jsCode);
     }
 
 

@@ -42,32 +42,45 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public String[] selectReplyById(Long id) {
-        Reply reply = replyRepository.findById(id).get();
-        String filePath = "upload/code";
+            Reply reply = replyRepository.findById(id).get();
+            String filePath = "upload/code";
 
-        String[] str = new String[3];
+            String[] str = new String[3];
 
-        int index = 0;
+            File htmlFile = new File(filePath,reply.getCode().getHtmlCodeUrl());
+            File cssFile = new File(filePath,reply.getCode().getCssCodeUrl());
+            File jsFile = new File(filePath,reply.getCode().getJsCodeUrl());
 
-        for(Code code: reply.getCodes()){
-            File file = new File(filePath,code.getCodeUrl());
-            BufferedReader br;
+            BufferedReader html;
+            BufferedReader css;
+            BufferedReader js;
 
             try{
-                FileReader reader = new FileReader(file);
-                br = new BufferedReader(reader);
+                FileReader htmlReader = new FileReader(htmlFile);
+                FileReader cssReader = new FileReader(cssFile);
+                FileReader jsReader = new FileReader(jsFile);
+
+                html = new BufferedReader(htmlReader);
+                css = new BufferedReader(cssReader);
+                js = new BufferedReader(jsReader);
+
                 String line = "";
-                while ((line = br.readLine()) != null){
-                    str[index] += line;
+                while ((line = html.readLine()) != null){
+                    str[0] += line;
+                }
+                while ((line = css.readLine()) != null){
+                    str[1] += line;
+                }
+                while ((line = js.readLine()) != null){
+                    str[2] += line;
                 }
             } catch (IOException e) {
                 System.err.println("Unable to read the file: " + e.getMessage());
                 return null;  // 또는 적절한 예외 처리
             }
             log.info("실행");
-            index++;
 
-        }
+
 
         return str;
     }
