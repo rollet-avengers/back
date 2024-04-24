@@ -3,7 +3,6 @@ package com.roulette.roulette.myPage;
 import com.roulette.roulette.dto.mypage.*;
 import com.roulette.roulette.entity.*;
 import com.roulette.roulette.myPage.myRepository.*;
-import com.roulette.roulette.myPage.myRepository.MyReplyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ import java.util.List;
 public class MyPageServiceImpl implements MyPageService {
     private  final MyMemberRepository myMemberRepository;
     private  final MyPostRepository myPostRepository;
-    private  final MyReplyRepository myReplyRepository;
     private final SaveCodeRepository saveCodeRepository;
 
 
@@ -63,12 +61,8 @@ public class MyPageServiceImpl implements MyPageService {
                 .build();
     }
 
-    //채택 버튼 누르면 savCode에 코드가 저장된다.
-
-    //selectReplyById()
     //내가 올린 코드 불러오기
     public List<SaveCodeDTO> getMyCodeData(Long member_id){
-        // 해당 memberId로 회원의 코드 URL과 생성 시간을 가져와 설정
         List<SaveCode> saveCodes = saveCodeRepository.findAllByMemberId(member_id);
 
         List<SaveCodeDTO> saveCodeDTOS = new ArrayList<>();
