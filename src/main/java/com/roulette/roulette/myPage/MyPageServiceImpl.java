@@ -3,6 +3,7 @@ package com.roulette.roulette.myPage;
 import com.roulette.roulette.dto.mypage.*;
 import com.roulette.roulette.entity.*;
 import com.roulette.roulette.myPage.myRepository.*;
+import com.roulette.roulette.post.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class MyPageServiceImpl implements MyPageService {
     private  final MyMemberRepository myMemberRepository;
     private  final MyPostRepository myPostRepository;
     private final SaveCodeRepository saveCodeRepository;
-
+    private final ImageRepository imageRepository;
 
     //내정보 조회하기
     public MemberDTO getMemberDTO(Long member_id){
@@ -45,11 +46,12 @@ public class MyPageServiceImpl implements MyPageService {
         List<Post> postList = myPostRepository.findAllByMemberId(member_id);
         List<PostDTO> postDTOList = new ArrayList<>();
         for (Post post : postList) {
+            Image image = imageRepository.findByPostImg_Post(post).get();
             PostDTO postDTO = PostDTO.builder()
                     .postId(post.getPostId())
                     .title(post.getTitle())
                     .createdTime(post.getCreateTime())
-                    .imgSrc("/uploads/img" + post.getPostId())  // 연수님 참고
+                    .imgSrc(image.getImgUrl())
                     .build();
             postDTOList.add(postDTO);
         }
