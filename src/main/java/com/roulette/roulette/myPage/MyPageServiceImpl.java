@@ -83,4 +83,13 @@ public class MyPageServiceImpl implements MyPageService {
         return saveCodeDTOS;
     }
 
+    //채택버튼을 눌렀을 떄 saveCode가 만들어져서 테이블이 만들어지는 코드
+    public void insert(SaveCodeDTO saveCodeDTO){
+        SaveCode saveCode = SaveCode.builder()
+                .code(saveCodeDTO.getCode())
+                .member(saveCodeDTO.getMember())
+                .saveCodeId(saveCodeDTO.getSaveCodeId())
+                .build();
+        saveCodeRepository.save(saveCode);
+    }
 }
