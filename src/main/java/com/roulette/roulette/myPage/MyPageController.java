@@ -4,6 +4,7 @@ import com.roulette.roulette.aboutlogin.jwt.JwtUtill;
 import com.roulette.roulette.dto.mypage.MemberDTO;
 import com.roulette.roulette.dto.mypage.MyCodeDTO;
 import com.roulette.roulette.dto.mypage.MyPageDTO;
+import com.roulette.roulette.dto.mypage.SaveCodeDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -57,13 +59,13 @@ public class MyPageController {
 
     // 내가 저장한 코드 목록보기
     @GetMapping("/code/{member_id}")
-    public ResponseEntity<MyCodeDTO> getMyCode(@PathVariable Long member_id){
+    public ResponseEntity<List<SaveCodeDTO>> getMyCode(@PathVariable Long member_id){
 //        String access_token=req.getHeader("Authorization");
 //        Long member_id = jwtUtill.getidfromtoken(access_token);
-        MyCodeDTO myCodeDTO = myPageService.getMyCodeData(member_id);
-        if (myCodeDTO == null) {
+        List<SaveCodeDTO> saveCodeDTOS = myPageService.getMyCodeData(member_id);
+        if (saveCodeDTOS == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(myCodeDTO, HttpStatus.OK);
+        return new ResponseEntity<>(saveCodeDTOS, HttpStatus.OK);
     }
 }

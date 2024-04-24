@@ -14,9 +14,7 @@ public class CodeDTO {
 
     private String htmlCodeUrl;
 
-
     private String cssCodeUrl;
-
 
     private String jsCodeUrl;
 

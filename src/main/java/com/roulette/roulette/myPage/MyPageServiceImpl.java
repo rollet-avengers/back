@@ -1,13 +1,8 @@
 package com.roulette.roulette.myPage;
 
 import com.roulette.roulette.dto.mypage.*;
-import com.roulette.roulette.entity.Code;
-import com.roulette.roulette.entity.Member;
-import com.roulette.roulette.entity.Post;
-import com.roulette.roulette.entity.Reply;
-import com.roulette.roulette.myPage.myRepository.MyReplyRepository;
-import com.roulette.roulette.myPage.myRepository.MyMemberRepository;
-import com.roulette.roulette.myPage.myRepository.MyPostRepository;
+import com.roulette.roulette.entity.*;
+import com.roulette.roulette.myPage.myRepository.*;
 import com.roulette.roulette.myPage.myRepository.MyReplyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +20,7 @@ public class MyPageServiceImpl implements MyPageService {
     private  final MyMemberRepository myMemberRepository;
     private  final MyPostRepository myPostRepository;
     private  final MyReplyRepository myReplyRepository;
+    private final SaveCodeRepository saveCodeRepository;
 
 
     //내정보 조회하기
@@ -55,7 +51,7 @@ public class MyPageServiceImpl implements MyPageService {
                     .postId(post.getPostId())
                     .title(post.getTitle())
                     .createdTime(post.getCreateTime())
-                    .imgSrc("127.0.0.1/img/img" + post.getPostId())
+                    .imgSrc("/uploads/img" + post.getPostId())  // 연수님 참고
                     .build();
             postDTOList.add(postDTO);
         }
@@ -63,32 +59,28 @@ public class MyPageServiceImpl implements MyPageService {
         return MyPageDTO.builder()
                 .email(email)
                 .postList(postDTOList)
+                .memberId(member_id)
                 .build();
     }
 
+    //채택 버튼 누르면 savCode에 코드가 저장된다.
 
+    //selectReplyById()
     //내가 올린 코드 불러오기
-    public MyCodeDTO getMyCodeData(Long member_id){
-        MyCodeDTO myCodeDTO = new MyCodeDTO();
+    public List<SaveCodeDTO> getMyCodeData(Long member_id){
+        // 해당 memberId로 회원의 코드 URL과 생성 시간을 가져와 설정
+        List<SaveCode> saveCodes = saveCodeRepository.findAllByMemberId(member_id);
 
-//        // 해당 memberId로 회원의 코드 URL과 생성 시간을 가져와 설정
-        List<Reply> replyList = myReplyRepository.findAllByMemberId(member_id);
-
-        // 해당 memberId로 회원이 작성한 모든 code를 가져와 설정
-        List<CodeDTO> codeDTOList = new ArrayList<>();
-        for (Reply reply : replyList) {
-            CodeDTO codeDTO = CodeDTO.builder()
-                    .codeId(reply.getCode().getCodeId())
-                    .cssCodeUrl(reply.getCode().getCssCodeUrl())
-                    .htmlCodeUrl(reply.getCode().getHtmlCodeUrl())
-                    .jsCodeUrl(reply.getCode().getJsCodeUrl())
+        List<SaveCodeDTO> saveCodeDTOS = new ArrayList<>();
+        for (SaveCode saveCode : saveCodes) {
+            SaveCodeDTO saveCodeDTO = SaveCodeDTO.builder()
+                    .code(saveCode.getCode())
+                    .member(saveCode.getMember())
+                    .saveCodeId(saveCode.getSaveCodeId())
                     .build();
-            codeDTOList.add(codeDTO);
+            saveCodeDTOS.add(saveCodeDTO);
         }
-
-        return MyCodeDTO.builder()
-                .codeList(codeDTOList)
-                .build();
+        return saveCodeDTOS;
     }
 
 }
