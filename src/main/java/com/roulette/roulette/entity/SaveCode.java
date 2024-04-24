@@ -1,6 +1,7 @@
 package com.roulette.roulette.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -22,4 +23,10 @@ public class SaveCode {
     @JoinColumn(name = "code_id")
     private Code code;
 
+    @Builder
+    public SaveCode(Long saveCodeId, Member member, Code code) {
+        this.saveCodeId = saveCodeId;
+        this.member = member;
+        this.code = code;
+    }
 }

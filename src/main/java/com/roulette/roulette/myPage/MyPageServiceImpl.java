@@ -3,7 +3,7 @@ package com.roulette.roulette.myPage;
 import com.roulette.roulette.dto.mypage.*;
 import com.roulette.roulette.entity.*;
 import com.roulette.roulette.myPage.myRepository.*;
-import com.roulette.roulette.myPage.myRepository.MyReplyRepository;
+import com.roulette.roulette.post.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,8 @@ import java.util.List;
 public class MyPageServiceImpl implements MyPageService {
     private  final MyMemberRepository myMemberRepository;
     private  final MyPostRepository myPostRepository;
-    private  final MyReplyRepository myReplyRepository;
     private final SaveCodeRepository saveCodeRepository;
-
+    private final ImageRepository imageRepository;
 
     //내정보 조회하기
     public MemberDTO getMemberDTO(Long member_id){
@@ -47,11 +46,12 @@ public class MyPageServiceImpl implements MyPageService {
         List<Post> postList = myPostRepository.findAllByMemberId(member_id);
         List<PostDTO> postDTOList = new ArrayList<>();
         for (Post post : postList) {
+            Image image = imageRepository.findByPostImg_Post(post).get();
             PostDTO postDTO = PostDTO.builder()
                     .postId(post.getPostId())
                     .title(post.getTitle())
                     .createdTime(post.getCreateTime())
-                    .imgSrc("/uploads/img" + post.getPostId())  // 연수님 참고
+                    .imgSrc(image.getImgUrl())
                     .build();
             postDTOList.add(postDTO);
         }
@@ -63,12 +63,8 @@ public class MyPageServiceImpl implements MyPageService {
                 .build();
     }
 
-    //채택 버튼 누르면 savCode에 코드가 저장된다.
-
-    //selectReplyById()
     //내가 올린 코드 불러오기
     public List<SaveCodeDTO> getMyCodeData(Long member_id){
-        // 해당 memberId로 회원의 코드 URL과 생성 시간을 가져와 설정
         List<SaveCode> saveCodes = saveCodeRepository.findAllByMemberId(member_id);
 
         List<SaveCodeDTO> saveCodeDTOS = new ArrayList<>();
@@ -83,4 +79,13 @@ public class MyPageServiceImpl implements MyPageService {
         return saveCodeDTOS;
     }
 
+    //채택버튼을 눌렀을 떄 saveCode가 만들어져서 테이블이 만들어지는 코드
+    public void insert(SaveCodeDTO saveCodeDTO){
+        SaveCode saveCode = SaveCode.builder()
+                .code(saveCodeDTO.getCode())
+                .member(saveCodeDTO.getMember())
+                .saveCodeId(saveCodeDTO.getSaveCodeId())
+                .build();
+        saveCodeRepository.save(saveCode);
+    }
 }

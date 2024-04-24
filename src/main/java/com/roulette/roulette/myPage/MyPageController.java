@@ -5,6 +5,7 @@ import com.roulette.roulette.dto.mypage.MemberDTO;
 import com.roulette.roulette.dto.mypage.MyCodeDTO;
 import com.roulette.roulette.dto.mypage.MyPageDTO;
 import com.roulette.roulette.dto.mypage.SaveCodeDTO;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,10 +37,10 @@ public class MyPageController {
     }
 
     // 내정보 조회하기
-    @GetMapping("/member/{member_id}")
-    public ResponseEntity<MemberDTO> getAllMembers(@PathVariable Long member_id) {
-//        String access_token=req.getHeader("Authorization");
-//        Long member_id = jwtUtill.getidfromtoken(access_token);
+    @GetMapping("/member")
+    public ResponseEntity<MemberDTO> getAllMembers(HttpServletRequest req) {
+        String access_token=req.getHeader("Authorization").substring(7);
+        Long member_id = jwtUtill.getidfromtoken(access_token);
         MemberDTO memberDTO = myPageService.getMemberDTO(member_id);
         if (memberDTO == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -47,10 +48,10 @@ public class MyPageController {
     }
 
     // 내 질문 목록 리스트에서 email포함 해서 DTO만들기
-    @GetMapping("/list/{member_id}")
-    public ResponseEntity<MyPageDTO> getMyPost(@PathVariable Long member_id){
-//        String access_token=req.getHeader("Authorization");
-//        Long member_id = jwtUtill.getidfromtoken(access_token);
+    @GetMapping("/list")
+    public ResponseEntity<MyPageDTO> getMyPost(HttpServletRequest req){
+        String access_token=req.getHeader("Authorization").substring(7);
+        Long member_id = jwtUtill.getidfromtoken(access_token);
         MyPageDTO myPageDTO = myPageService.getMyPageData(member_id);
         if (myPageDTO == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -59,9 +60,9 @@ public class MyPageController {
 
     // 내가 저장한 코드 목록보기
     @GetMapping("/code/{member_id}")
-    public ResponseEntity<List<SaveCodeDTO>> getMyCode(@PathVariable Long member_id){
-//        String access_token=req.getHeader("Authorization");
-//        Long member_id = jwtUtill.getidfromtoken(access_token);
+    public ResponseEntity<List<SaveCodeDTO>> getMyCode(HttpServletRequest req){
+        String access_token=req.getHeader("Authorization").substring(7);
+        Long member_id = jwtUtill.getidfromtoken(access_token);
         List<SaveCodeDTO> saveCodeDTOS = myPageService.getMyCodeData(member_id);
         if (saveCodeDTOS == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
