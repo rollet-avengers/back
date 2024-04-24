@@ -1,7 +1,7 @@
 package com.roulette.roulette.reply.controller;
 
 import com.roulette.roulette.aboutlogin.repository.MemberJpaRepository;
-import com.roulette.roulette.code.request.CodeRequest;
+import com.roulette.roulette.code.request.ReplyCodeRequest;
 import com.roulette.roulette.entity.Member;
 import com.roulette.roulette.reply.service.ReplyService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,10 +22,13 @@ import java.util.Map;
 public class ReplyController {
 
     private final ReplyService replyService;
+
+    // 임시 코드
     private final MemberJpaRepository memberJpaRepository;
+
     @PostMapping
     public ResponseEntity<String> setReply(
-            @RequestBody CodeRequest codeRequest,
+            @RequestBody ReplyCodeRequest codeRequest,
             HttpServletRequest servletRequest
     ){
 
