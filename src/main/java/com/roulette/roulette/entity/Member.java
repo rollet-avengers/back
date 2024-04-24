@@ -3,6 +3,7 @@ package com.roulette.roulette.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -20,12 +21,14 @@ public class Member {
     @Column(name = "email")
     private String email;
 
-
     @Column(name="create_date")
     private LocalDateTime create_time;
 
     @Column(name="deleted_date")
     private LocalDateTime deleted_time;
+
+    @OneToMany(mappedBy = "member")
+    private List<SaveCode> saveCodes;
 
 
     public Member(String name, String email) {

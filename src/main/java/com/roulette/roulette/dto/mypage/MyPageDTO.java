@@ -11,10 +11,12 @@ import java.util.List;
 public class MyPageDTO {
     private String email;
     private List<PostDTO> postList;
-
+    private Long memberId;
     @Builder
-    public MyPageDTO(String email, List<PostDTO> postList) {
+
+    public MyPageDTO(String email, List<PostDTO> postList, Long memberId) {
         this.email = email;
         this.postList = postList;
+        this.memberId = memberId;
     }
 }
