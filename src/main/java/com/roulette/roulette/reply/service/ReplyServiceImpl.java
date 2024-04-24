@@ -36,7 +36,7 @@ public class ReplyServiceImpl implements ReplyService {
                 .member(member)
                 .build();
 
-        codeService.insertCode(html, css, js, reply);
+        codeService.insertReplyCode(html, css, js, reply, member);
 
 
         replyRepository.save(reply);

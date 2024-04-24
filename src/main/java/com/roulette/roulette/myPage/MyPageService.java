@@ -12,4 +12,6 @@ public interface MyPageService {
 
     List<SaveCodeDTO> getMyCodeData(Long memberId);
 
+    public void insert(SaveCodeDTO saveCodeDTO);
+
 }
