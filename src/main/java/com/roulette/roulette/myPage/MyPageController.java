@@ -59,7 +59,7 @@ public class MyPageController {
     }
 
     // 내가 저장한 코드 목록보기
-    @GetMapping("/code/{member_id}")
+    @GetMapping("/code")
     public ResponseEntity<List<SaveCodeDTO>> getMyCode(HttpServletRequest req){
         String access_token=req.getHeader("Authorization").substring(7);
         Long member_id = jwtUtill.getidfromtoken(access_token);
