@@ -1,11 +1,10 @@
-package com.roulette.roulette.myPage;
+package com.roulette.roulette.myPage.controller;
 
 import com.roulette.roulette.aboutlogin.jwt.JwtUtill;
 import com.roulette.roulette.dto.mypage.MemberDTO;
-import com.roulette.roulette.dto.mypage.MyCodeDTO;
 import com.roulette.roulette.dto.mypage.MyPageDTO;
 import com.roulette.roulette.dto.mypage.SaveCodeDTO;
-import jakarta.servlet.http.HttpServlet;
+import com.roulette.roulette.myPage.service.MyPageService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

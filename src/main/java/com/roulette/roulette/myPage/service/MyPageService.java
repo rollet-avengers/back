@@ -1,4 +1,4 @@
-package com.roulette.roulette.myPage;
+package com.roulette.roulette.myPage.service;
 
 
 import com.roulette.roulette.dto.mypage.*;
@@ -11,5 +11,5 @@ public interface MyPageService {
     MyPageDTO getMyPageData(Long memberId);
 
     List<SaveCodeDTO> getMyCodeData(Long memberId);
-
+    public void insert(SaveCodeDTO saveCodeDTO);
 }
